@@ -21,7 +21,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionProfiles")));
 builder.Services.AddScoped<DataContext>();
 builder.Services.AddScoped<IUserProfileRepository, UserProfileRepository>();
 builder.Services.AddScoped<UserProfileService, UserProfileService>();
