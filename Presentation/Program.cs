@@ -9,14 +9,14 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", x => //TODO: Replace with more restrictive policy in production
+    options.AddPolicy("AllowSpecificOrigins", policy =>
     {
-        x.WithOrigins("http://localhost:5173", "https://localhost:5001", "https://localhost:7252", "http://localhost:5240") // adjust ports if needed
-               .AllowAnyHeader()
-               .AllowAnyMethod()
-               .AllowCredentials();
+        policy.WithOrigins("https://agreeable-sky-072bcf303.6.azurestaticapps.net")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
+
 
 builder.Services.AddSwaggerGen();
 
@@ -40,7 +40,7 @@ app.UseSwaggerUI(c =>
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll");
+app.UseCors("AllowSpecificOrigins");
 
 app.UseAuthentication();
 app.UseAuthorization(); //[Authorize] not implemented, TODO: Change authservice to use JWT tokens and implement [Authorize] attribute in controllers
